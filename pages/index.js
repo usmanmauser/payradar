@@ -7,8 +7,8 @@ export default function Home() {
     <>
       <Head>
         <title>PayRadar | Smart Financial Calculators</title>
-        <meta name="description" content="Free, easy-to-use financial calculators to help you budget, save, borrow, and invest smarter. No signup required." />
-        <meta name="keywords" content="financial tools, calculators, savings tracker, loan repayment, budget planner, retirement tools" />
+        <meta name="description" content="Free financial tools that help you save, plan, borrow, and invest smarter. No signup needed." />
+        <meta name="keywords" content="financial tools, calculators, savings, loan, budget, retirement" />
         <meta name="author" content="PayRadar" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -40,13 +40,9 @@ export default function Home() {
       <section className="py-20 bg-gray-50 px-6 md:px-20">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-12">🛠️ Explore Our Tools</h2>
-          <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 text-left">
             {tools.map((tool) => (
-              <a
-                key={tool.href}
-                href={tool.href}
-                className="bg-white p-6 rounded-2xl shadow-sm border hover:shadow-md transition text-left"
-              >
+              <a key={tool.href} href={tool.href} className="bg-white p-6 rounded-2xl shadow-sm border hover:shadow-md transition">
                 <h3 className="text-xl font-semibold mb-2">{tool.icon} {tool.title}</h3>
                 <p className="text-gray-700">{tool.description}</p>
               </a>
@@ -89,13 +85,7 @@ export default function Home() {
           </div>
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
-            <p className="text-gray-400 mb-1">📧 support@payradar.com</p>
-            <p className="text-gray-400 mb-4">📞 +1 (555) 123-4567</p>
-            <div className="flex space-x-4">
-              <a href="#" className="hover:text-white text-gray-400">🌐</a>
-              <a href="#" className="hover:text-white text-gray-400">🐦</a>
-              <a href="#" className="hover:text-white text-gray-400">📘</a>
-            </div>
+            <p className="text-gray-400">📧 contact@payrader.space</p>
           </div>
         </div>
         <div className="text-center text-gray-500 text-xs border-t border-gray-700 pt-4 mt-8">
@@ -111,60 +101,60 @@ const tools = [
     title: "Compound Interest Calculator",
     href: "/compound-interest",
     icon: "🔢",
-    description: "See how your savings grow with interest over time.",
+    description: "See how your money can grow on its own over time. Just enter how much you have, how often you add money, and the interest rate.",
   },
   {
     title: "Loan Repayment Calculator",
     href: "/loan-repayment",
     icon: "💸",
-    description: "Plan how to repay your loans faster and smarter.",
+    description: "Understand how long it’ll take to repay a loan. Enter the loan amount, interest rate, and monthly payment to track your payoff plan.",
   },
   {
     title: "Budget Planner",
     href: "/budget-planner",
     icon: "🧾",
-    description: "Organize income, spending, and savings with ease.",
+    description: "Track where your money goes each month. Input income and expenses to see your full financial picture and find ways to save.",
   },
   {
     title: "Retirement Savings Calculator",
     href: "/retirement-savings",
     icon: "🏖️",
-    description: "Estimate how much you’ll need for a comfortable retirement.",
+    description: "Check if you’re saving enough for retirement. Enter your age, savings, and target to see if you’re on track for the future.",
   },
   {
     title: "Credit Card Payoff Calculator",
     href: "/credit-card-payoff",
     icon: "💳",
-    description: "Eliminate debt faster and save on interest.",
+    description: "Calculate how long it will take to pay off your credit card. Enter your balance and payments to reduce interest and get debt-free.",
   },
   {
     title: "Savings Goal Tracker",
     href: "/savings-goal",
     icon: "🎯",
-    description: "Track progress toward your short and long-term savings goals.",
+    description: "Set a savings goal and track progress. Whether it’s for a trip or a car, this tool keeps you motivated and focused.",
   },
   {
     title: "401(k) Contribution Estimator",
     href: "/401k-contribution",
     icon: "📈",
-    description: "See how contributions impact your retirement over time.",
+    description: "Estimate how your 401(k) grows with regular contributions and employer match. A helpful tool for long-term financial planning.",
   },
   {
     title: "Mortgage Refinance Calculator",
     href: "/mortgage-refinance",
     icon: "🏠",
-    description: "Check if refinancing your mortgage can save you money.",
+    description: "Compare your current mortgage with a new one. See potential monthly savings and long-term benefits if you refinance.",
   },
   {
     title: "Rent vs. Buy Calculator",
     href: "/rent-vs-buy",
     icon: "🏡",
-    description: "Compare the true cost of renting vs. buying a home.",
+    description: "Compare the cost of renting and buying a home. Helps you make a smart housing decision based on your budget.",
   },
   {
     title: "Home Affordability Calculator",
     href: "/home-affordability",
     icon: "💰",
-    description: "Find out what home price fits your budget.",
+    description: "Find out what home price fits your budget. Input income, bills, and savings to see what you can afford without stress.",
   },
 ];
