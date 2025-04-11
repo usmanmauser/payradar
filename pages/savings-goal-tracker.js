@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import Head from 'next/head'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+
 
 export default function SavingsGoalTracker() {
   const [goal, setGoal] = useState('')
