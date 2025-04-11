@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import Head from 'next/head'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 
 export default function MortgageCalculator() {
