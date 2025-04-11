@@ -9,7 +9,7 @@ const tools = [
   },
   {
     title: '💸 Loan Repayment Calculator',
-    href: '/loan-repayment-calculator',
+    href: '/loan-repayment',
     description: 'Understand how long it’ll take to pay back a loan. Shows total interest and helps you plan faster debt payoff.',
   },
   {
@@ -19,12 +19,12 @@ const tools = [
   },
   {
     title: '🏖️ Retirement Savings Calculator',
-    href: '/retirement-savings-calculator',
+    href: '/retirement-savings',
     description: 'See if you’re saving enough for retirement. Plan early and adjust to reach your future goals with ease.',
   },
   {
     title: '💳 Credit Card Payoff Calculator',
-    href: '/credit-card-payoff-calculator',
+    href: '/credit-card-payoff',
     description: 'Figure out how long it’ll take to pay off credit card debt and how much interest you’ll pay. Pay off faster.',
   },
   {
@@ -34,17 +34,17 @@ const tools = [
   },
   {
     title: '📈 401(k) Contribution Estimator',
-    href: '/401k-contribution-estimator',
+    href: '/401k-estimator',
     description: 'Estimate how much your 401(k) will grow. See the impact of contributions and employer match over time.',
   },
   {
     title: '🏠 Mortgage Refinance Calculator',
-    href: '/mortgage-refinance-calculator',
+    href: '/mortgage-refinance',
     description: 'Compare your current loan with a new one. See potential savings on monthly payments and long-term interest.',
   },
   {
     title: '🏡 Rent vs. Buy Calculator',
-    href: '/rent-vs-buy-calculator',
+    href: '/rent-vs-buy',
     description: 'Should you rent or buy a home? Compare both to see which makes more financial sense for you.',
   },
   {
