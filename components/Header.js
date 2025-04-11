@@ -5,8 +5,8 @@ export default function Header() {
         <a href="/" className="text-xl font-bold text-blue-900">PayRadar</a>
         <nav className="space-x-4">
           <a href="/" className="text-gray-700 hover:text-blue-800">Home</a>
-          <a href="#tools" className="text-gray-700 hover:text-blue-800">Tools</a>
-          <a href="#" className="text-gray-700 hover:text-blue-800">About</a>
+          <a href="tools" className="text-gray-700 hover:text-blue-800">Tools</a>
+          <a href="about" className="text-gray-700 hover:text-blue-800">About</a>
         </nav>
       </div>
     </header>
