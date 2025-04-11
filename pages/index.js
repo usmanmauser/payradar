@@ -49,7 +49,7 @@ const tools = [
   },
   {
     title: '💰 Home Affordability Calculator',
-    href: '/home-affordability-calculator',
+    href: '/home-affordability',
     description: 'Find out how much house you can afford based on your income and expenses. A smart first step toward buying.',
   },
 ];
