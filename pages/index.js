@@ -21,6 +21,9 @@ export default function Header() {
     </header>
   );
 }
+
+
+
 <section className="bg-white py-16 px-6 md:px-20">
   <div className="max-w-5xl mx-auto text-center">
     <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">💡 How It Works</h2>
@@ -41,6 +44,16 @@ export default function Header() {
     </p>
   </div>
 </section>
+
+
+
+
+
+
+
+
+
+
 <section className="py-16 bg-white">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">🛠️ Tool Categories</h2>
@@ -127,3 +140,54 @@ export default function Header() {
     </div>
   </div>
 </section>
+
+
+
+
+
+
+
+
+<footer className="bg-gray-900 text-white py-10 mt-16">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+      
+      {/* Section 1 - Logo and Description */}
+      <div>
+        <a href="/" className="text-2xl font-bold text-white">PayRadar</a>
+        <p className="text-gray-300 mt-3">
+          Smarter tools for smarter money. Use PayRadar to plan, budget, and grow your savings — completely free.
+        </p>
+      </div>
+
+      {/* Section 2 - Links */}
+      <div>
+        <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+        <ul className="space-y-2">
+          <li><a href="/" className="text-gray-300 hover:text-white">Home</a></li>
+          <li><a href="/tools" className="text-gray-300 hover:text-white">Tools</a></li>
+          <li><a href="/about" className="text-gray-300 hover:text-white">About</a></li>
+          <li><a href="/privacy-policy" className="text-gray-300 hover:text-white">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      {/* Section 3 - Contact & Socials */}
+      <div>
+        <h4 className="text-lg font-semibold mb-4">Contact</h4>
+        <p className="text-gray-300 mb-2">📞 +1 (555) 123-4567</p>
+        <p className="text-gray-300 mb-4">📧 support@payradar.com</p>
+        <div className="flex space-x-4">
+          <a href="#" className="hover:text-white text-gray-400">🌐</a>
+          <a href="#" className="hover:text-white text-gray-400">🐦</a>
+          <a href="#" className="hover:text-white text-gray-400">📘</a>
+        </div>
+      </div>
+    </div>
+
+    {/* Footer Bottom */}
+    <div className="mt-10 text-center text-gray-500 text-xs border-t border-gray-700 pt-4">
+      &copy; {new Date().getFullYear()} PayRadar. All rights reserved.
+    </div>
+  </div>
+</footer>
+
