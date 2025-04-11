@@ -1,11 +1,13 @@
-// pages/index.js
 import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Link from 'next/link';
 
 export default function Home() {
   return (
     <>
       <Header />
 
+      {/* How It Works Section */}
       <section className="bg-white py-16 px-6 md:px-20">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">💡 How It Works</h2>
@@ -27,118 +29,75 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Tool Categories Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">🛠️ Tool Categories</h2>
           <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2">
-            {/* Tool 1 */}
-            <div className="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h3 className="text-xl font-semibold mb-2">🔢 Compound Interest Calculator</h3>
-              <p className="text-gray-700">
-                See how your money can grow on its own over time. Even small amounts can grow big if you leave them alone. Great for anyone starting to save money!
-              </p>
-            </div>
-            {/* Tool 2 */}
-            <div className="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h3 className="text-xl font-semibold mb-2">💸 Loan Repayment Calculator</h3>
-              <p className="text-gray-700">
-                This tool helps you understand how long it’ll take to pay back a loan. It shows how much interest you’ll pay and how to pay it off faster.
-              </p>
-            </div>
-            {/* Tool 3 */}
-            <div className="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h3 className="text-xl font-semibold mb-2">🧾 Budget Planner</h3>
-              <p className="text-gray-700">
-                Plan your income and expenses easily. This tool shows you where your money goes and helps you save. It's simple and keeps you on track every month.
-              </p>
-            </div>
-            {/* Tool 4 */}
-            <div className="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h3 className="text-xl font-semibold mb-2">🏖️ Retirement Savings Calculator</h3>
-              <p className="text-gray-700">
-                Want to know if you’re saving enough for the future? This tool helps you see if you need to save more or if you’re doing okay for retirement.
-              </p>
-            </div>
-            {/* Tool 5 */}
-            <div className="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h3 className="text-xl font-semibold mb-2">💳 Credit Card Payoff Calculator</h3>
-              <p className="text-gray-700">
-                Owe money on a credit card? This tool shows how long it takes to pay it off and how paying more saves you money. Helps you beat debt faster.
-              </p>
-            </div>
-            {/* Tool 6 */}
-            <div className="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h3 className="text-xl font-semibold mb-2">🎯 Savings Goal Tracker</h3>
-              <p className="text-gray-700">
-                Saving for something big? Set your goal and track your progress. It tells you if you’re on track or need to save more. Super simple to use!
-              </p>
-            </div>
-            {/* Tool 7 */}
-            <div className="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h3 className="text-xl font-semibold mb-2">📈 401(k) Contribution Estimator</h3>
-              <p className="text-gray-700">
-                Want to grow your 401(k)? This tool shows how your savings and company match can add up over time. Start small and see big results later!
-              </p>
-            </div>
-            {/* Tool 8 */}
-            <div className="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h3 className="text-xl font-semibold mb-2">🏠 Mortgage Refinance Calculator</h3>
-              <p className="text-gray-700">
-                Want a lower mortgage rate? This tool compares your current loan to a new one and shows how much you could save monthly and long term.
-              </p>
-            </div>
-            {/* Tool 9 */}
-            <div className="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h3 className="text-xl font-semibold mb-2">🏡 Rent vs. Buy Calculator</h3>
-              <p className="text-gray-700">
-                Not sure whether to rent or buy? This tool compares the costs and helps you see which option saves more money over time. Clear and easy to use.
-              </p>
-            </div>
-            {/* Tool 10 */}
-            <div className="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h3 className="text-xl font-semibold mb-2">💰 Home Affordability Calculator</h3>
-              <p className="text-gray-700">
-                Want to buy a house but not sure how much you can afford? This tool shows a home price that fits your budget without making life hard.
-              </p>
-            </div>
+            {[
+              {
+                title: "🔢 Compound Interest Calculator",
+                description: "See how your money can grow on its own over time. Even small amounts can grow big if you leave them alone. Great for anyone starting to save money!",
+                href: "/compound-interest"
+              },
+              {
+                title: "💸 Loan Repayment Calculator",
+                description: "This tool helps you understand how long it’ll take to pay back a loan. It shows how much interest you’ll pay and how to pay it off faster.",
+                href: "/loan-repayment"
+              },
+              {
+                title: "🧾 Budget Planner",
+                description: "Plan your income and expenses easily. This tool shows you where your money goes and helps you save. It's simple and keeps you on track every month.",
+                href: "/budget-planner"
+              },
+              {
+                title: "🏖️ Retirement Savings Calculator",
+                description: "Want to know if you’re saving enough for the future? This tool helps you see if you need to save more or if you’re doing okay for retirement.",
+                href: "/retirement-savings"
+              },
+              {
+                title: "💳 Credit Card Payoff Calculator",
+                description: "Owe money on a credit card? This tool shows how long it takes to pay it off and how paying more saves you money. Helps you beat debt faster.",
+                href: "/credit-card-payoff"
+              },
+              {
+                title: "🎯 Savings Goal Tracker",
+                description: "Saving for something big? Set your goal and track your progress. It tells you if you’re on track or need to save more. Super simple to use!",
+                href: "/savings-goal"
+              },
+              {
+                title: "📈 401(k) Contribution Estimator",
+                description: "Want to grow your 401(k)? This tool shows how your savings and company match can add up over time. Start small and see big results later!",
+                href: "/401k-contribution"
+              },
+              {
+                title: "🏠 Mortgage Refinance Calculator",
+                description: "Want a lower mortgage rate? This tool compares your current loan to a new one and shows how much you could save monthly and long term.",
+                href: "/mortgage-refinance"
+              },
+              {
+                title: "🏡 Rent vs. Buy Calculator",
+                description: "Not sure whether to rent or buy? This tool compares the costs and helps you see which option saves more money over time. Clear and easy to use.",
+                href: "/rent-vs-buy"
+              },
+              {
+                title: "💰 Home Affordability Calculator",
+                description: "Want to buy a house but not sure how much you can afford? This tool shows a home price that fits your budget without making life hard.",
+                href: "/home-affordability"
+              },
+            ].map((tool, index) => (
+              <Link key={index} href={tool.href}>
+                <div className="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md cursor-pointer transition">
+                  <h3 className="text-xl font-semibold mb-2">{tool.title}</h3>
+                  <p className="text-gray-700">{tool.description}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      <footer className="bg-gray-900 text-white py-10 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
-            <div>
-              <a href="/" className="text-2xl font-bold text-white">PayRadar</a>
-              <p className="text-gray-300 mt-3">
-                Smarter tools for smarter money. Use PayRadar to plan, budget, and grow your savings — completely free.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2">
-                <li><a href="/" className="text-gray-300 hover:text-white">Home</a></li>
-                <li><a href="/tools" className="text-gray-300 hover:text-white">Tools</a></li>
-                <li><a href="/about" className="text-gray-300 hover:text-white">About</a></li>
-                <li><a href="/privacy-policy" className="text-gray-300 hover:text-white">Privacy Policy</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Contact</h4>
-              <p className="text-gray-300 mb-2">📞 +1 (555) 123-4567</p>
-              <p className="text-gray-300 mb-4">📧 support@payradar.com</p>
-              <div className="flex space-x-4">
-                <a href="#" className="hover:text-white text-gray-400">🌐</a>
-                <a href="#" className="hover:text-white text-gray-400">🐦</a>
-                <a href="#" className="hover:text-white text-gray-400">📘</a>
-              </div>
-            </div>
-          </div>
-          <div className="mt-10 text-center text-gray-500 text-xs border-t border-gray-700 pt-4">
-            &copy; {new Date().getFullYear()} PayRadar. All rights reserved.
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }
