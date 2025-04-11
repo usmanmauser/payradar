@@ -4,7 +4,7 @@ import Link from 'next/link';
 const tools = [
   {
     title: '🔢 Compound Interest Calculator',
-    href: '/compound-interest-calculator',
+    href: '/compound-interest',
     description: 'See how your money can grow over time. Even small amounts grow big with compound interest. Great for anyone starting to save!',
   },
   {
