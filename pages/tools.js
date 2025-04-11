@@ -7,13 +7,13 @@ export default function ToolsPage() {
       emoji: '🔢',
       title: 'Compound Interest Calculator',
       description: 'See how your savings can grow over time with interest.',
-      link: '/compound-interest-calculator',
+      link: '/compound-interest',
     },
     {
       emoji: '💸',
       title: 'Loan Repayment Calculator',
       description: 'Plan your loan payoff and reduce interest costs.',
-      link: '/loan-repayment-calculator',
+      link: '/loan-repayment',
     },
     {
       emoji: '🧾',
@@ -25,13 +25,13 @@ export default function ToolsPage() {
       emoji: '🏖️',
       title: 'Retirement Savings Calculator',
       description: 'Estimate your savings for a stress-free retirement.',
-      link: '/retirement-savings-calculator',
+      link: '/retirement-savings',
     },
     {
       emoji: '💳',
       title: 'Credit Card Payoff Calculator',
       description: 'Pay off credit cards faster and save on interest.',
-      link: '/credit-card-payoff-calculator',
+      link: '/credit-card-payoff',
     },
     {
       emoji: '🎯',
@@ -43,25 +43,25 @@ export default function ToolsPage() {
       emoji: '📈',
       title: '401(k) Contribution Estimator',
       description: 'See how contributions grow with time and employer match.',
-      link: '/401k-contribution-estimator',
+      link: '/401k-contribution',
     },
     {
       emoji: '🏠',
       title: 'Mortgage Refinance Calculator',
       description: 'Compare your current mortgage with refinance options.',
-      link: '/mortgage-refinance-calculator',
+      link: '/mortgage-refinance',
     },
     {
       emoji: '🏡',
       title: 'Rent vs. Buy Calculator',
       description: 'Compare renting vs buying based on your lifestyle.',
-      link: '/rent-vs-buy-calculator',
+      link: '/rent-vs-buy',
     },
     {
       emoji: '💰',
       title: 'Home Affordability Calculator',
       description: 'Find out how much house you can afford confidently.',
-      link: '/home-affordability-calculator',
+      link: '/home-affordability',
     },
   ];
 
