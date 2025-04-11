@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 
-export default function 401kEstimator() {
+export default function K401Estimator() {
   const [age, setAge] = useState('')
   const [retireAge, setRetireAge] = useState('')
   const [salary, setSalary] = useState('')
