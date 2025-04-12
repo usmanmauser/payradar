@@ -261,10 +261,7 @@ Calculate
 <div className="mt-12 bg-yellow-100 text-yellow-800 p-4 rounded text-center">
 Ad Placeholder (Tool Bottom)
 </div>
-</main>
-</>
-)
-}
+
 
 
 <section className="mt-16">
@@ -429,3 +426,7 @@ Understanding how compound interest works is a total game changer for anyone ser
 Don’t be afraid to play with the numbers and see what happens — the more you experiment, the more you’ll understand. If you’ve got any questions, feel free to reach out at <a href="mailto:contact@payrader.space" className="text-blue-600 underline">contact@payrader.space</a>. We’re always here to help!
 </p>
 </section>
+</main>
+</>
+);
+}
