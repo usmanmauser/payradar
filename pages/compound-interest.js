@@ -1,13 +1,6 @@
 import { useState } from 'react'
 import Head from 'next/head'
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 
 const currencies = {
   USD: 'US Dollar',
@@ -25,24 +18,34 @@ const currencies = {
 export default function CompoundInterest() {
   const [principal, setPrincipal] = useState('')
   const [rate, setRate] = useState('')
-  const [compFreq, setCompFreq] = useState(1)
-  const [interestApplyFreq, setInterestApplyFreq] = useState('annually')
+  const [interestApplied, setInterestApplied] = useState('annually')
+  const [compoundFreq, setCompoundFreq] = useState(1)
   const [years, setYears] = useState('')
   const [months, setMonths] = useState('')
   const [currency, setCurrency] = useState('USD')
+
   const [additionalOption, setAdditionalOption] = useState('none')
   const [depositAmount, setDepositAmount] = useState('')
-  const [depositFreq, setDepositFreq] = useState('yearly')
+  const [depositFreq, setDepositFreq] = useState('monthly')
   const [withdrawalAmount, setWithdrawalAmount] = useState('')
-  const [withdrawalFreq, setWithdrawalFreq] = useState('yearly')
-  const [data, setData] = useState([])
+  const [withdrawalFreq, setWithdrawalFreq] = useState('monthly')
+
   const [result, setResult] = useState(null)
   const [resultWords, setResultWords] = useState('')
+  const [chartData, setChartData] = useState([])
+  const [tableData, setTableData] = useState([])
 
-  const freqMap = {
+  const compoundMap = {
     daily: 365,
     weekly: 52,
     biweekly: 26,
+    quarterly: 4,
+    halfyearly: 2,
+    annually: 1,
+  }
+
+  const freqMap = {
+    monthly: 12,
     quarterly: 4,
     halfyearly: 2,
     yearly: 1,
@@ -51,43 +54,46 @@ export default function CompoundInterest() {
   const calculate = () => {
     const p = parseFloat(principal)
     const r = parseFloat(rate) / 100
-    const y = parseInt(years) || 0
-    const m = parseInt(months) || 0
-    const totalYears = y + m / 12
+    const tYears = parseInt(years || 0)
+    const tMonths = parseInt(months || 0)
+    const n = parseInt(compoundFreq)
 
-    if (isNaN(p) || isNaN(r) || totalYears <= 0) {
-      alert('Please enter valid values for investment, interest rate, and time.')
+    if (isNaN(p) || isNaN(r) || isNaN(n) || (tYears === 0 && tMonths === 0)) {
+      alert('Please fill in all required fields properly.')
       return
     }
 
+    const totalYears = tYears + tMonths / 12
     let amount = p
-    const breakdown = []
+    const data = []
+    const table = []
 
-    for (let i = 1; i <= totalYears * compFreq; i++) {
-      amount *= 1 + r / compFreq
+    for (let year = 1; year <= totalYears; year++) {
+      let deposits = 0
+      let withdrawals = 0
 
       if (additionalOption === 'deposit' || additionalOption === 'both') {
-        if (i % (compFreq / freqMap[depositFreq]) === 0) {
-          amount += parseFloat(depositAmount || 0)
-        }
+        const freq = freqMap[depositFreq] || 0
+        deposits = (parseFloat(depositAmount) || 0) * freq
+        amount += deposits
       }
 
-      if (additionalOption === 'withdrawal' || additionalOption === 'both') {
-        if (i % (compFreq / freqMap[withdrawalFreq]) === 0) {
-          amount -= parseFloat(withdrawalAmount || 0)
-        }
+      if (additionalOption === 'withdraw' || additionalOption === 'both') {
+        const freq = freqMap[withdrawalFreq] || 0
+        withdrawals = (parseFloat(withdrawalAmount) || 0) * freq
+        amount -= withdrawals
       }
 
-      if (i % compFreq === 0) {
-        breakdown.push({
-          year: i / compFreq,
-          amount: +amount.toFixed(2),
-        })
-      }
+      amount *= Math.pow(1 + r / n, n)
+      amount = Math.max(amount, 0)
+
+      data.push({ year, amount: +amount.toFixed(2) })
+      table.push({ year, deposits, withdrawals, value: +amount.toFixed(2) })
     }
 
-    setData(breakdown)
     setResult(amount.toFixed(2))
+    setChartData(data)
+    setTableData(table)
 
     fetch(`/api/number-to-words?amount=${amount}&currency=${currency}`)
       .then((res) => res.text())
@@ -97,76 +103,54 @@ export default function CompoundInterest() {
   return (
     <>
       <Head>
-        <title>Smart Compound Interest Calculator | PayRadar</title>
-        <meta
-          name="description"
-          content="Get accurate growth forecasts for your investments. Try our compound interest calculator with timeline, deposits, withdrawals, and flexible frequency options."
-        />
+        <title>Compound Interest Calculator - PayRadar</title>
+        <meta name="description" content="Calculate compound interest easily. Add deposits, withdrawals, pick compound frequency, and get chart + yearly breakdown." />
         <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="Smart Compound Interest Calculator | PayRadar" />
-        <meta
-          property="og:description"
-          content="Estimate your investment growth with our compound interest calculator. Add deposits, withdrawals, and see visual charts with yearly breakdown."
-        />
+        <meta property="og:title" content="Compound Interest Calculator - PayRadar" />
+        <meta property="og:description" content="Easy compound interest calculator with charts, breakdowns, and smart options." />
         <meta property="og:type" content="website" />
       </Head>
 
-      <main className="max-w-4xl mx-auto px-4 py-10">
+      <main className="max-w-3xl mx-auto px-4 py-10">
         <h1 className="text-3xl font-bold text-blue-900 mb-4">Compound Interest Calculator</h1>
-        <p className="text-gray-700 mb-6">
-          Let’s figure out how fast your money can grow over time with smart compounding. You can even add deposits or withdrawals to see real scenarios.
-        </p>
+        <p className="text-gray-700 mb-8">Figure out how your money grows with interest, including deposits, withdrawals, and custom timelines.</p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+        <div className="space-y-5">
           <div>
-            <label className="block font-semibold mb-1">Initial Investment</label>
-            <p className="text-sm text-gray-600 mb-2">The amount you’re starting with in your investment journey.</p>
-            <input
-              type="number"
-              className="input"
-              placeholder="Enter amount"
-              value={principal}
-              onChange={(e) => setPrincipal(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <label className="block font-semibold mb-1">Interest Rate (%)</label>
-            <p className="text-sm text-gray-600 mb-2">This is how fast your money grows—think savings account, FD, stocks etc.</p>
-            <input
-              type="number"
-              className="input"
-              placeholder="e.g. 7"
-              value={rate}
-              onChange={(e) => setRate(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <label className="block font-semibold mb-1">Interest Applied</label>
-            <p className="text-sm text-gray-600 mb-2">Choose how often interest is added to your investment.</p>
-            <select
-              className="input"
-              value={interestApplyFreq}
-              onChange={(e) => setInterestApplyFreq(e.target.value)}
-            >
-              <option value="daily">Daily</option>
-              <option value="weekly">Weekly</option>
-              <option value="monthly">Monthly</option>
-              <option value="quarterly">Quarterly</option>
-              <option value="annually">Annually</option>
-              <option value="none">Off</option>
+            <label className="font-semibold">Currency</label>
+            <select className="input w-full" value={currency} onChange={(e) => setCurrency(e.target.value)}>
+              {Object.entries(currencies).map(([code, name]) => (
+                <option key={code} value={code}>{code} - {name}</option>
+              ))}
             </select>
           </div>
 
           <div>
-            <label className="block font-semibold mb-1">Compound Frequency</label>
-            <p className="text-sm text-gray-600 mb-2">How often your interest gets added back in (compounded). E.g., yearly, monthly etc.</p>
-            <select
-              className="input"
-              value={compFreq}
-              onChange={(e) => setCompFreq(parseInt(e.target.value))}
-            >
+            <label className="font-semibold">Initial Investment</label>
+            <p className="text-sm text-gray-600 mb-1">This is your starting amount — what you're investing right now.</p>
+            <input type="number" className="input w-full" value={principal} onChange={(e) => setPrincipal(e.target.value)} placeholder="e.g. 10000" />
+          </div>
+
+          <div>
+            <label className="font-semibold">Interest Rate (%)</label>
+            <p className="text-sm text-gray-600 mb-1">Annual rate of return. For example, bank FD rates, savings accounts, or even stock returns.</p>
+            <input type="number" className="input w-full" value={rate} onChange={(e) => setRate(e.target.value)} placeholder="e.g. 7" />
+          </div>
+
+          <div>
+            <label className="font-semibold">Interest Applied</label>
+            <p className="text-sm text-gray-600 mb-1">Choose how often interest is added: daily, weekly, monthly, quarterly, or yearly.</p>
+            <select className="input w-full" value={interestApplied} onChange={(e) => setInterestApplied(e.target.value)}>
+              {Object.keys(compoundMap).map((key) => (
+                <option key={key} value={key}>{key}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="font-semibold">Compound Frequency</label>
+            <p className="text-sm text-gray-600 mb-1">How often the money is being compounded. Ex: daily (365/year), monthly (12/year).</p>
+            <select className="input w-full" onChange={(e) => setCompoundFreq(e.target.value)} value={compoundFreq}>
               <option value={365}>Daily (365/year)</option>
               <option value={52}>Weekly (52/year)</option>
               <option value={26}>Bi-weekly (26/year)</option>
@@ -177,132 +161,104 @@ export default function CompoundInterest() {
           </div>
 
           <div>
-            <label className="block font-semibold mb-1">Investment Duration</label>
-            <p className="text-sm text-gray-600 mb-2">How long you’re planning to keep the money invested.</p>
-            <div className="flex gap-2">
-              <input
-                type="number"
-                className="input"
-                placeholder="Years"
-                value={years}
-                onChange={(e) => setYears(e.target.value)}
-              />
-              <input
-                type="number"
-                className="input"
-                placeholder="Months"
-                value={months}
-                onChange={(e) => setMonths(e.target.value)}
-              />
+            <label className="font-semibold">Timeline</label>
+            <p className="text-sm text-gray-600 mb-1">For how long will your money stay invested?</p>
+            <div className="grid grid-cols-2 gap-4">
+              <input type="number" className="input w-full" placeholder="Years" value={years} onChange={(e) => setYears(e.target.value)} />
+              <input type="number" className="input w-full" placeholder="Months" value={months} onChange={(e) => setMonths(e.target.value)} />
             </div>
           </div>
 
           <div>
-            <label className="block font-semibold mb-1">Currency</label>
-            <select
-              className="input"
-              value={currency}
-              onChange={(e) => setCurrency(e.target.value)}
-            >
-              {Object.entries(currencies).map(([code, name]) => (
-                <option key={code} value={code}>
-                  {code} - {name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="sm:col-span-2">
-            <label className="block font-semibold mb-1">Additional Situations</label>
-            <p className="text-sm text-gray-600 mb-2">Want to add extra money or withdraw during the investment period? Choose below.</p>
-            <select
-              className="input"
-              value={additionalOption}
-              onChange={(e) => setAdditionalOption(e.target.value)}
-            >
+            <label className="font-semibold">Additional Situations</label>
+            <p className="text-sm text-gray-600 mb-1">Want to add money regularly or take some out? Turn this on to explore that.</p>
+            <select className="input w-full" value={additionalOption} onChange={(e) => setAdditionalOption(e.target.value)}>
               <option value="none">None</option>
-              <option value="deposit">Only Deposits</option>
-              <option value="withdrawal">Only Withdrawals</option>
+              <option value="deposit">Deposits Only</option>
+              <option value="withdraw">Withdrawals Only</option>
               <option value="both">Both</option>
             </select>
           </div>
 
           {(additionalOption === 'deposit' || additionalOption === 'both') && (
             <div>
-              <label className="block font-semibold mb-1">Deposit Amount</label>
-              <input
-                type="number"
-                className="input"
-                placeholder="e.g. 100"
-                value={depositAmount}
-                onChange={(e) => setDepositAmount(e.target.value)}
-              />
-              <select
-                className="input mt-2"
-                value={depositFreq}
-                onChange={(e) => setDepositFreq(e.target.value)}
-              >
-                <option value="monthly">Monthly</option>
-                <option value="quarterly">Quarterly</option>
-                <option value="halfyearly">Half Yearly</option>
-                <option value="yearly">Yearly</option>
-              </select>
+              <label className="font-semibold">Deposit Amount</label>
+              <div className="flex gap-3">
+                <input type="number" className="input w-full" value={depositAmount} onChange={(e) => setDepositAmount(e.target.value)} />
+                <select className="input" value={depositFreq} onChange={(e) => setDepositFreq(e.target.value)}>
+                  <option value="monthly">Monthly</option>
+                  <option value="quarterly">Quarterly</option>
+                  <option value="halfyearly">Half-yearly</option>
+                  <option value="yearly">Yearly</option>
+                </select>
+              </div>
             </div>
           )}
 
-          {(additionalOption === 'withdrawal' || additionalOption === 'both') && (
+          {(additionalOption === 'withdraw' || additionalOption === 'both') && (
             <div>
-              <label className="block font-semibold mb-1">Withdrawal Amount</label>
-              <input
-                type="number"
-                className="input"
-                placeholder="e.g. 50"
-                value={withdrawalAmount}
-                onChange={(e) => setWithdrawalAmount(e.target.value)}
-              />
-              <select
-                className="input mt-2"
-                value={withdrawalFreq}
-                onChange={(e) => setWithdrawalFreq(e.target.value)}
-              >
-                <option value="monthly">Monthly</option>
-                <option value="quarterly">Quarterly</option>
-                <option value="halfyearly">Half Yearly</option>
-                <option value="yearly">Yearly</option>
-              </select>
+              <label className="font-semibold">Withdrawal Amount</label>
+              <div className="flex gap-3">
+                <input type="number" className="input w-full" value={withdrawalAmount} onChange={(e) => setWithdrawalAmount(e.target.value)} />
+                <select className="input" value={withdrawalFreq} onChange={(e) => setWithdrawalFreq(e.target.value)}>
+                  <option value="monthly">Monthly</option>
+                  <option value="quarterly">Quarterly</option>
+                  <option value="halfyearly">Half-yearly</option>
+                  <option value="yearly">Yearly</option>
+                </select>
+              </div>
             </div>
           )}
         </div>
 
         <button
           onClick={calculate}
-          className="bg-blue-800 text-white px-6 py-2 rounded shadow hover:bg-blue-900 transition"
+          className="mt-6 bg-blue-800 text-white px-6 py-2 rounded shadow hover:bg-blue-900 transition"
         >
           Calculate
         </button>
 
         {result && (
           <div className="mt-10 bg-green-50 p-5 rounded shadow">
-            <h2 className="text-lg font-semibold text-green-800 mb-2">Final Results</h2>
-            <p className="text-gray-800">
-              Total Future Value: <strong>{currency} {result}</strong>
-            </p>
-            <p className="text-gray-600 italic mt-1">{resultWords}</p>
+            <h2 className="text-xl font-semibold text-green-900 mb-2">Results</h2>
+            <p className="text-lg">Future Value: <strong>{currency} {result}</strong></p>
+            <p className="text-gray-600 italic mb-4">{resultWords}</p>
 
-            <div className="mt-6">
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={data}>
-                  <XAxis dataKey="year" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="amount" fill="#3b82f6" />
-                </BarChart>
-              </ResponsiveContainer>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={chartData}>
+                <XAxis dataKey="year" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="amount" fill="#3b82f6" />
+              </BarChart>
+            </ResponsiveContainer>
+
+            <div className="mt-8 overflow-auto">
+              <table className="w-full border mt-4 text-sm">
+                <thead className="bg-blue-100">
+                  <tr>
+                    <th className="px-3 py-2 border">Year</th>
+                    <th className="px-3 py-2 border">Deposits</th>
+                    <th className="px-3 py-2 border">Withdrawals</th>
+                    <th className="px-3 py-2 border">End Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tableData.map((row) => (
+                    <tr key={row.year}>
+                      <td className="px-3 py-1 border text-center">{row.year}</td>
+                      <td className="px-3 py-1 border text-center">{currency} {row.deposits.toFixed(2)}</td>
+                      <td className="px-3 py-1 border text-center">{currency} {row.withdrawals.toFixed(2)}</td>
+                      <td className="px-3 py-1 border text-center">{currency} {row.value.toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         )}
 
-        <div className="mt-10 bg-yellow-100 text-yellow-800 p-4 rounded text-center">
+        <div className="mt-12 bg-yellow-100 text-yellow-800 p-4 rounded text-center">
           Ad Placeholder (Tool Bottom)
         </div>
       </main>
