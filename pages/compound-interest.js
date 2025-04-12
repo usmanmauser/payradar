@@ -360,6 +360,7 @@ If you start saving early and consistently, compound interest turns small amount
 <td className="border border-gray-300 px-4 py-2">$2,000</td>
 <td className="border border-gray-300 px-4 py-2">$50,000</td>
 <td className="border border-gray-300 px-4 py-2">~$142,000</td>
+</tr>
 ::contentReference[oaicite:0]{index=0}
 
 
